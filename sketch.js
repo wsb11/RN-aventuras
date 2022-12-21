@@ -1,6 +1,6 @@
 //LINK DOS VIDEOS: 
-//video explicando o codigo: https://youtu.be/3iVZKfbUEYE
 //video demostrando o funcionamento do jogo: https://youtu.be/C0qOAM5wvSo
+//Criando minhas variáveis:
 var xpaubrasilFalso=[], ypaubrasilFalso=[],indiopegaPauBrasilFalso=[], qtd;
 var openScreen, tela, yRect,opcao, istrucoespraJogar, musica, resumoDoJogo;
 var imgFase1, imgFase2, imgFase3, imgFase4;
@@ -8,10 +8,9 @@ var imgPersonagem, personagem2,personagem3, personagem4, xb, yb, yChao,pulo;
 var imgPauBrasil, xpaubrasil, ypaubrasil, indiopegaPauBrasil, velocidadePauBrasil, velocidadeItemsFalsos, efeitoSonoro1, marcoDeTouros, marcoDeTourosFalso;
 var mapaRn,flecha, fortalezaDosReisMagos, frances;
 var estado, openScreen, efcoBrookshireRegular;
-//var pauBrasilFalso, xpaubrasilFalso, ypaubrasilFalso, pauBrasilFalso2, xpaubrasilFalso2, ypaubrasilFalso2;
-//var indiopegaPauBrasilFalso, indiopegaPauBrasilFalso2, 
 var efeitoSonoro2;
 var score, vidas, gameOver, xGaOver, yGaOver, telaVitoria,telaVitoriaFase2, telaCreditos;
+//Função preload que carrega arquivos nesta função
 function preload(){
   openScreen = loadImage("Banco_de_Imagens_Usadas/capa jogo rn.png");
   efcoBrookshireRegular = loadFont("EFCO Brookshire Regular.ttf");
@@ -43,7 +42,7 @@ function preload(){
   efeitoSonoro1 = loadSound('spell3.mp3');
   efeitoSonoro2 = loadSound('Horror-Hit.mp3');
 }
-
+//função de configuração, declarar valores iniciais(se precisar)
 function setup() {
   createCanvas(500, 500);
   tela=0;
@@ -59,15 +58,12 @@ function setup() {
   velocidadeItemsFalsos=2;
   qtd=5;
   indiopegaPauBrasil = false;
+  //Iniciando valores com for neste vetor
   for(i=0;i<qtd;i++){
     xpaubrasilFalso[i] = 350;
     ypaubrasilFalso[i] = height / 2+(i+50);
     indiopegaPauBrasilFalso[i] = false;
-  //xpaubrasilFalso2=390;
-  //ypaubrasilFalso2= height/3;  
   }
-//  indiopegaPauBrasilFalso = false;
-  //indiopegaPauBrasilFalso2=false;
   score = 0;
   vidas = 50;
   xGaOver = 100;
@@ -76,6 +72,7 @@ function setup() {
 }
 //Função draw com if e elses pra transição das telas
 function draw() {
+  //mudança de telas:
   if (estado == 0) {
     opening();
   }
@@ -113,12 +110,12 @@ function draw() {
   if(estado==9){
     telaDeVitoriaFase3();
   }
-
 }
 //Função do Som
 function playSound() {
   musica.loop();
 }
+//tela do resumo
 function resumo(){
   background(resumoDoJogo);
   fill("#4D2105");
@@ -147,12 +144,14 @@ function opening() {
   rect(width / 2 +60, height / 2+190, 187, 54, 20);
   fill("#4D2105");
   text("Use 'Enter' e as 'Setas' \n pra entrar nas opcões", width / 2+62, height / 2+215);
+  //para saber onde está o mouse nas posições x e y
   /*  push();
   fill(255);
   textSize(20);
   text(mouseX + ":" + mouseY, 30, 20);
   pop();*/
 }
+//Tela de Instrucoes
 function instrucoes() {
   playSound();
   background(istrucoespraJogar);
@@ -163,6 +162,7 @@ function instrucoes() {
   text("'Z' pra jogar", width / 2 - 80, height / 2+230);
   tela=2;
 }
+//Tela de creditos
 function creditos() {
     background(telaCreditos);
     fill("#4D2105");
@@ -170,6 +170,7 @@ function creditos() {
     text("'Esc' pra voltar", width / 2 - 100, height / 2+230);
     tela=3;
 }
+//Telas de vitorias
 function teladeVitoria(){
    background(telaVitoria);
     tela=4;
@@ -182,6 +183,7 @@ function telaDeVitoriaFase3(){
   background(telaVitoriaFase3);
   tela=6;
 }
+//Função para movimentação dos objetos em tela, e do game over
 function movimentacaoPontosVidasGameOverEncerrar(){
   image(gameOver, xGaOver, yGaOver, 300, 300);
   moverPersonagem();
@@ -194,6 +196,7 @@ function movimentacaoPontosVidasGameOverEncerrar(){
   text("Vidas: " + vidas, 10, 29);
   finish();
 }
+//Tela fase 1
 function fase1() {
   background(imgFase1);
   image(imgPersonagem, xb, yb, 120, 70);
@@ -202,42 +205,38 @@ function fase1() {
     image(pauBrasilFalso, xpaubrasilFalso[i], ypaubrasilFalso[i], 100, 70);
   }
   movimentacaoPontosVidasGameOverEncerrar();
-    /*  push();
-  fill(255);
-  textSize(20);
-  text(mouseX + ":" + mouseY, 30, 20);
-  pop();*/
 }
+//Tela fase 2
 function fase2(){
   background(imgFase2);
   image(personagem2, xb, yb, 120, 70);
   image(marcoDeTouros, xpaubrasil, ypaubrasil, 100, 70);
   for(i=0;i<qtd;i++){
     image(marcoDeTourosFalso, xpaubrasilFalso[i], ypaubrasilFalso[i], 80, 70);
- //   image(marcoDeTourosFalso, xpaubrasilFalso2, ypaubrasilFalso2, 100, 70);
   }
   movimentacaoPontosVidasGameOverEncerrar();
 }
+//Tela fase 3
 function fase3(){
     background(imgFase3);
   image(personagem3, xb, yb, 110, 110);
   image(mapaRn, xpaubrasil, ypaubrasil, 100, 70);
   for(i=0;i<qtd;i++){
     image(flecha, xpaubrasilFalso[i], ypaubrasilFalso[i], 100, 70);
- //   image(marcoDeTourosFalso, xpaubrasilFalso2, ypaubrasilFalso2, 100, 70);
   }
   movimentacaoPontosVidasGameOverEncerrar();
 }
+//Tela fase 4
 function fase4(){
     background(imgFase4);
   image(personagem4, xb, yb, 80, 90);
   image(fortalezaDosReisMagos, xpaubrasil, ypaubrasil, 100, 70);
   for(i=0;i<qtd;i++){
     image(frances, xpaubrasilFalso[i], ypaubrasilFalso[i], 100, 70);
- //   image(marcoDeTourosFalso, xpaubrasilFalso2, ypaubrasilFalso2, 100, 70);
   }
   movimentacaoPontosVidasGameOverEncerrar();
 }
+//Movimentação do seu personagem
 function moverPersonagem() {
   if(keyIsDown(RIGHT_ARROW)){
     xb = xb+6;
@@ -269,7 +268,7 @@ function moverPersonagem() {
     xb=425;
   }
 }
-//movimento do pau-brasil automatico
+//movimentação do(s) objeto(s) a se pegar
 function moverPauBrasil() {
   //mover objeto pra esquerda
   xpaubrasil = xpaubrasil - velocidadePauBrasil;
@@ -277,6 +276,7 @@ function moverPauBrasil() {
     xpaubrasil = 430;
     ypaubrasil = random(20, 365);
   }
+  //Velocidade aumenta para dificuldade tambem aumentar
   if (score > 20) {
     velocidadePauBrasil = 3;
   }
@@ -290,7 +290,7 @@ function moverPauBrasil() {
     velocidadePauBrasil = 8;
   }
 }
-//movimento automatico do falso pau-brasil
+//movimentação dos objetos falso que deve-se evitar
 function moverpaubrasilFalso() {
     for(i=0;i<qtd;i++){//xpaubrasilFalso
       xpaubrasilFalso[i] = xpaubrasilFalso[i] - velocidadeItemsFalsos; 
@@ -298,6 +298,7 @@ function moverpaubrasilFalso() {
         xpaubrasilFalso[i] = 430;
         ypaubrasilFalso[i] = random(20, 365);
     }
+//Velocidade do objeto falso aumenta para dificuldade tambem aumentar
     if (score >= 100) {
       velocidadeItemsFalsos = 3;
   }
@@ -308,18 +309,9 @@ function moverpaubrasilFalso() {
       velocidadeItemsFalsos = 4;
   }
   }
-//  xpaubrasilFalso = xpaubrasilFalso - 2;
-  //xpaubrasilFalso2 = xpaubrasilFalso2 - 2;  
-  /*if (xpaubrasilFalso < -45) {
-    xpaubrasilFalso = 400;
-    ypaubrasilFalso = random(20, 380);
-  }
-  if (xpaubrasilFalso2 < -45) {
-    xpaubrasilFalso2 = 400;
-    ypaubrasilFalso2 = random(20, 400);
-  }*/
 }
-//Checar se houve colisão entre Indio e Pau-Brasil, ou seja indio pegou pau-brasil
+//Checar se houve colisão entre seu personagem e objeto certo a...
+//...Se pegar, ganhando pontuação quando pega
 function checarIndioPegouPauBrasil() {
   indiopegaPauBrasil = collideRectRect(
     xb,
@@ -338,12 +330,12 @@ function checarIndioPegouPauBrasil() {
     efeitoSonoroItemCerto();
   }
 }
-//efeito sonoro quando o índio pega o pau-brasil
+//efeito sonoro quando seu personagem pega objeto correto
 function efeitoSonoroItemCerto(){
   efeitoSonoro1.play();
 }
-
-//Checar se houve colisão entre Indio e FALSO pau-brasil, ou seja indio pegou o FALSO pau-brasil
+//Checar se houve colisão entre seu personagem e objeto falso que...
+//...Deve-se evitar, perde vidas quando se pega obj. falso
 function checarIndioPegoupaubrasilFalso() {
   for(i=0;i<qtd;i++){
     indiopegaPauBrasilFalso[i] = collideRectRect(xb,yb,50,90,
@@ -358,36 +350,15 @@ function checarIndioPegoupaubrasilFalso() {
     efeitoSonoroItemErrado();
   }
   }
-   /* 
-  indiopegaPauBrasilFalso = collideRectRect(xb,yb,50,100,
-    xpaubrasilFalso,
-    ypaubrasilFalso,45,35);
-  indiopegaPauBrasilFalso2 = collideRectRect(xb,yb,50,100,
-    xpaubrasilFalso2,
-    ypaubrasilFalso2,45,35);
-  if (indiopegaPauBrasilFalso) {
-    vidas=vidas-6;
-    xpaubrasilFalso = 420;
-    ypaubrasilFalso = random(20, 380);
-    yb=370;
-    efeitoSonoroItemErrado();
-  }
-if(indiopegaPauBrasilFalso2){
-    vidas=vidas-6;
-    xpaubrasilFalso2 = 420;
-    ypaubrasilFalso2 = random(20, 400);
-    yb=370;
-    efeitoSonoroItemErrado();
-  }*/
   if (vidas < 0) {
     vidas = 0;
   }
 }
-//efeito sonoro quando o índio pega o Falso pau-brasil
+//efeito sonoro quando seu personagem pega o objeto(s) errado
 function efeitoSonoroItemErrado(){
   efeitoSonoro2.play();
 }
-//Encerrar o jogo
+//Sumir com todos os objetos que aparecem na tela
 function objetosSumirdaTela(){
     xpaubrasil = 700;
     for(i=0;i<qtd;i++){
@@ -395,6 +366,7 @@ function objetosSumirdaTela(){
     }
     yb = yb + 4;
 }
+//Encerrando o jogo
 function finish() {
   //game over aparecer, demais objetos da tela somem
   if (vidas <= 0) {
@@ -403,7 +375,8 @@ function finish() {
   }
   if (yGaOver < -150) {
     yGaOver = 420;
-  }//tela da vitoria 1, 2 e 3
+  }
+  //Quando se vence... tela da vitoria 1, 2 e 3
   if (score >= 100 && (estado == 1)) {
     estado = 7;
     objetosSumirdaTela();
@@ -415,7 +388,7 @@ function finish() {
   if (score >= 300 && (estado==3)) {
     estado=9;
     objetosSumirdaTela();
-  }//tela de creditos(venceu o jogo)
+  }//tela de creditos(venceu o jogo(zerou))
   if (score >= 400 && (estado==4)) {
     creditos();
     objetosSumirdaTela();
